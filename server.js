@@ -19,6 +19,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.use('/api/admin', adminRouter);
 app.use('/api/client', clientRouter);
@@ -31,7 +37,7 @@ const server = app.listen(port, () => console.log(`Application started running o
 
 const io = socket(server, {
   cors: {
-    origin: 'https://main--eclectic-boba-552073.netlify.app/',
+    origin: 'http://localhost:3000',
     credentials: true,
   },
 });
