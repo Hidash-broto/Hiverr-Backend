@@ -1,0 +1,50 @@
+const mongoose = require('mongoose');
+const ClientSchema = require('./clientSchema');
+const GigSchema = require('./gigSchema');
+const FreelancerSchema = require('./freelancerSchema');
+
+const PaymentSchema = mongoose.Schema(
+  {
+    transactionid: {
+      type: String,
+    },
+    transactionamount: {
+      type: String,
+    },
+    gigId: {
+      type: String,
+      ref: GigSchema,
+    },
+    freelancerId: {
+      type: String,
+      ref: FreelancerSchema,
+    },
+    clientId: {
+      type: String,
+      ref: ClientSchema,
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
+    paid: {
+      type: Boolean,
+      default: false,
+    },
+    statuses: [{
+      percentage: {
+        default: 0,
+        type: Number,
+      },
+      doneThings: String,
+    }],
+    fileLocation: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+module.exports = mongoose.model('payment', PaymentSchema);
