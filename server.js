@@ -31,7 +31,7 @@ const server = app.listen(port, () => console.log(`Application started running o
 
 const io = socket(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://main--eclectic-boba-552073.netlify.app/',
     credentials: true,
   },
 });

@@ -365,4 +365,13 @@ module.exports = {
       res.json({ status: false, message: error.messag });
     }
   },
+  gigDelete: (req, res) => {
+    try {
+      console.log(req.body);
+      const { id } = req.body;
+      GigSchema.deleteOne({ _id: id }).then(() => res.json({ status: true }));
+    } catch (error) {
+      res.json({ status: false, message: error.message });
+    }
+  },
 };
