@@ -3,7 +3,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const {
   doSignup, freelancerList, freelancerBlock, doGigSave, getAllMessengers, getNotification,
   requestAccept, gigReject, dashboardDatas, getAllEarningsData, getUserDt, updateWorkStatus,
-  submitOrder, doDownload,
+  submitOrder,
 } = require('../controllers/freelancer');
 
 router.post('/signup', doSignup);
