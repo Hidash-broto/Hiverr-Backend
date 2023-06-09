@@ -3,6 +3,11 @@ const ClientSchema = require('./clientSchema');
 const GigSchema = require('./gigSchema');
 const FreelancerSchema = require('./freelancerSchema');
 
+const defaultStatus = {
+  percentage: 0,
+  doneThings: '',
+};
+
 const PaymentSchema = mongoose.Schema(
   {
     transactionid: {
@@ -32,11 +37,17 @@ const PaymentSchema = mongoose.Schema(
       default: false,
     },
     statuses: [{
-      percentage: {
-        default: 0,
-        type: Number,
+      type: {
+        percentage: {
+          type: Number,
+          default: defaultStatus.percentage,
+        },
+        doneThings: {
+          type: String,
+          default: defaultStatus.doneThings,
+        },
       },
-      doneThings: String,
+      default: [defaultStatus],
     }],
     fileLocation: {
       type: String,

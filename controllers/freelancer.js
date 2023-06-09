@@ -367,9 +367,23 @@ module.exports = {
   },
   gigDelete: (req, res) => {
     try {
-      console.log(req.body);
       const { id } = req.body;
       GigSchema.deleteOne({ _id: id }).then(() => res.json({ status: true }));
+    } catch (error) {
+      res.json({ status: false, message: error.message });
+    }
+  },
+  callCheck: async (req, res) => {
+    try {
+      const { userId } = req.body;
+      const call = await ClientSchema.findOne({ caller: userId });
+      if (call) {
+        res.json({ status: true, data: call });
+        ClientSchema.updateOne({ caller: userId }, {
+          $set: { caller: '' },
+        // eslint-disable-next-line no-console
+        }).then((resp) => console.log(resp));
+      }
     } catch (error) {
       res.json({ status: false, message: error.message });
     }

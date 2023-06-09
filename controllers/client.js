@@ -257,12 +257,17 @@ module.exports = {
     try {
       const generatedSiganture = crypto.createHmac('sha256', process.env.PAYMENT_KEY_SECRET);
       generatedSiganture.update(`${req.body.razorpay_order_id}|${req.body.transactionid}`);
+      const statuses = {
+        percentage: 0,
+        doneThings: 'Started',
+      };
       const transaction = new PaymentSchema({
         transactionid: req.body.values.transactionid,
         transactionamount: req.body.values.transactionamount / 100,
         freelancerId: req.body.freelancerId,
         gigId: req.body.gigId,
         clientId: req.body.userId,
+        statuses,
       });
       if (req.body.gigId.length > 0 && req.body.freelancerId.length > 0) {
         await transaction.save();
@@ -328,6 +333,16 @@ module.exports = {
       }).then(() => {
         res.json({ status: true });
       });
+    } catch (error) {
+      res.json({ status: false, message: error.message });
+    }
+  },
+  freelancerCalling: (req, res) => {
+    try {
+      const { activeMessenger, userId } = req.body;
+      ClientSchema.updateOne({ _id: userId }, {
+        $set: { caller: activeMessenger },
+      }).then(() => res.json({ status: true }));
     } catch (error) {
       res.json({ status: false, message: error.message });
     }

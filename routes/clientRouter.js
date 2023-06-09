@@ -4,7 +4,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const {
   doSignup, clientList, clientBlock, gigList, messageUserAdd, getAllMessengers, favouriteGig,
   getFavorites, gigRequest, getNotification, amountPick, payment, doPayment, getAllStatus,
-  doDownload, closeOrder,
+  doDownload, closeOrder, freelancerCalling,
 } = require('../controllers/client');
 
 router.post('/signup', doSignup);
@@ -23,5 +23,6 @@ router.post('/doPayment', authMiddleware, doPayment);
 router.get('/getAllStatus', authMiddleware, getAllStatus);
 router.post('/doDownload', doDownload);
 router.put('/closeOrder', authMiddleware, closeOrder);
+router.put('/freelancerCalling', authMiddleware, freelancerCalling);
 
 module.exports = router;
